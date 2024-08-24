@@ -316,16 +316,8 @@ plt.show()
 plt.close('all')
 
 
-# Assuming total_df_inch is your actual DataFrame
 
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1.inset_locator import inset_axes
-import pickle
 
-# Assuming total_df_inch is your actual DataFrame
 
 # Split the DataFrame into separate DataFrames for each decomposition method
 datacp = total_df_inch[total_df_inch['Dec'] == 'cp']
