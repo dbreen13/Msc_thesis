@@ -142,211 +142,7 @@ with open(save_path, 'wb') as f:
 
 
 #%%
-# datacp = total_df_outch[total_df_outch['Dec'] == 'cp']
-# datatt = total_df_outch[total_df_outch['Dec'] == 'tt']
-# datatucker = total_df_outch[total_df_outch['Dec'] == 'tucker']
 
-# mac_min = np.min((total_df_outch['MAC_original'] - total_df_outch['MAC']) )-10**8
-# mac_max = np.max((total_df_outch['MAC_original'] - total_df_outch['MAC']) )+10**8
-
-# compression_ratios = [0.1, 0.25, 0.5, 0.75, 0.9]
-# input_channels = [1, 3, 5]
-
-# compr1_cp = datacp[datacp['Comp'] == 0.1]
-# compr25_cp = datacp[datacp['Comp'] == 0.25]
-# compr5_cp = datacp[datacp['Comp'] == 0.5]
-# compr75_cp = datacp[datacp['Comp'] == 0.75]
-# compr9_cp = datacp[datacp['Comp'] == 0.9]
-
-# cp_macs = {
-#     0.1: (compr1_cp['MAC_original'] - compr1_cp['MAC']),
-#     0.25: (compr25_cp['MAC_original'] - compr25_cp['MAC']),
-#     0.5: (compr5_cp['MAC_original'] - compr5_cp['MAC']),
-#     0.75: (compr75_cp['MAC_original'] - compr75_cp['MAC']),
-#     0.9: (compr9_cp['MAC_original'] - compr9_cp['MAC'])
-# }
-
-# compr1_tucker = datatucker[datatucker['Comp'] == 0.1]
-# compr25_tucker = datatucker[datatucker['Comp'] == 0.25]
-# compr5_tucker = datatucker[datatucker['Comp'] == 0.5]
-# compr75_tucker = datatucker[datatucker['Comp'] == 0.75]
-# compr9_tucker = datatucker[datatucker['Comp'] == 0.9]
-
-# tucker_macs = {
-#     0.1: (compr1_tucker['MAC_original'] - compr1_tucker['MAC']),
-#     0.25: (compr25_tucker['MAC_original'] - compr25_tucker['MAC']),
-#     0.5: (compr5_tucker['MAC_original'] - compr5_tucker['MAC']),
-#     0.75: (compr75_tucker['MAC_original'] - compr75_tucker['MAC']) ,
-#     0.9: (compr9_tucker['MAC_original'] - compr9_tucker['MAC'])
-# }
-
-# compr1_tt = datatt[datatt['Comp'] == 0.1]
-# compr25_tt = datatt[datatt['Comp'] == 0.25]
-# compr5_tt = datatt[datatt['Comp'] == 0.5]
-# compr75_tt = datatt[datatt['Comp'] == 0.75]
-# compr9_tt = datatt[datatt['Comp'] == 0.9]
-
-# tt_macs = {
-#     0.1: (compr1_tt['MAC_original'] - compr1_tt['MAC']),
-#     0.25: (compr25_tt['MAC_original'] - compr25_tt['MAC']),
-#     0.5: (compr5_tt['MAC_original'] - compr5_tt['MAC']),
-#     0.75: (compr75_tt['MAC_original'] - compr75_tt['MAC']),
-#     0.9: (compr9_tt['MAC_original'] - compr9_tt['MAC'])
-# }
-
-# fig, axes = plt.subplots(3, 1, figsize=(6, 6), sharex=True)
-
-# bar_width = 0.1
-# x = np.arange(len(input_channels))
-
-# colors = {
-#     0.1: '#4477aa',
-#     0.25: '#66ccee',
-#     0.5: '#228833',
-#     0.75: '#d4bb44',
-#     0.9: '#ee6677'
-# }
-
-# def plot_method(ax, method_macs, method_name):
-#     for i, cr in enumerate(compression_ratios):
-#         offset = (i - 2) * (bar_width + 0.01)
-#         bars = ax.bar(x + offset, method_macs[cr], width=bar_width, color=colors[cr], label=f'{cr}', zorder=2)
-    
-#     ax.grid(zorder=1)
-#     ax.set_ylim([mac_min - 0.1, mac_max + 0.1])
-#     ax.set_title(f'{method_name}')
-#     ax.set_xticks(x)
-#     ax.set_xticklabels(input_channels, fontsize=10)
-#     ax.tick_params(axis='x', pad=10)
-#     ax.grid(True, which='both', zorder=1)
-    
-
-# plot_method(axes[0], cp_macs, 'MAC reduction for diff. d for CP decomposition')
-# plot_method(axes[1], tucker_macs, 'MAC reduction for diff. d for Tucker decomposition')
-# plot_method(axes[2], tt_macs, 'MAC reduction for diff. d for TT decomposition')
-
-# # Adjust subplot parameters to create space on the left
-# plt.subplots_adjust(left=0.25)
-
-# fig.text(0.02, 0.5, 'Reduced number of MAC operations', va='center', rotation='vertical', fontsize=12)
-
-# plt.xlabel('Kernel size', fontsize=12)
-# plt.legend(loc="lower right", ncol=5)
-# plt.tight_layout()
-# plt.show()
-
-# #%% Memory plots
-# mac_min=np.min((total_df_outch['Memcalc_diff'].to_numpy()))-0.7*10**6
-# mac_max=np.max((total_df_outch['Memcalc_diff'].to_numpy()))+0.7*10**6
-
-
-# datacp=total_df_outch[total_df_outch['Dec']=='cp']
-# datatt=total_df_outch[total_df_outch['Dec']=='tt']
-# datatucker=total_df_outch[total_df_outch['Dec']=='tucker']
-
-
-# # inputs
-# compression_ratios = [0.1, 0.25, 0.5, 0.75, 0.9]
-# input_channels = [1,3,5]
-
-# #per compression
-# compr1_cp=datacp[datacp['Comp']==0.1]
-# compr25_cp=datacp[datacp['Comp']==0.25]
-# compr5_cp=datacp[datacp['Comp']==0.5]
-# compr75_cp=datacp[datacp['Comp']==0.75]
-# compr9_cp=datacp[datacp['Comp']==0.9]
-
-# # MAC operations data for each method at each compression ratio
-# cp_macs = {
-#     0.1: compr1_cp['Memcalc_diff'],
-#     0.25: compr25_cp['Memcalc_diff'],
-#     0.5: compr5_cp['Memcalc_diff'],
-#     0.75: compr75_cp['Memcalc_diff'],
-#     0.9: compr9_cp['Memcalc_diff']
-# }
-
-# #per compression
-# compr1_tucker=datatucker[datatucker['Comp']==0.1]
-# compr25_tucker=datatucker[datatucker['Comp']==0.25]
-# compr5_tucker=datatucker[datatucker['Comp']==0.5]
-# compr75_tucker=datatucker[datatucker['Comp']==0.75]
-# compr9_tucker=datatucker[datatucker['Comp']==0.9]
-
-# # MAC operations data for each method at each compression ratio
-# tucker_macs = {
-#     0.1: compr1_tucker['Memcalc_diff'],
-#     0.25: compr25_tucker['Memcalc_diff'],
-#     0.5: compr5_tucker['Memcalc_diff'],
-#     0.75: compr75_tucker['Memcalc_diff'],
-#     0.9: compr9_tucker['Memcalc_diff']
-# }
-# #per compression
-# compr1_tt=datatt[datatt['Comp']==0.1]
-# compr25_tt=datatt[datatt['Comp']==0.25]
-# compr5_tt=datatt[datatt['Comp']==0.5]
-# compr75_tt=datatt[datatt['Comp']==0.75]
-# compr9_tt=datatt[datatt['Comp']==0.9]
-
-# # MAC operations data for each method at each compression ratio
-# tt_macs = {
-#     0.1: compr1_tt['Memcalc_diff'],
-#     0.25: compr25_tt['Memcalc_diff'],
-#     0.5: compr5_tt['Memcalc_diff'],
-#     0.75: compr75_tt['Memcalc_diff'],
-#     0.9: compr9_tt['Memcalc_diff']
-# }
-# # Set up the figure with subplots for each method
-# fig, axes = plt.subplots(3, 1, figsize=(6, 6), sharex=True)
-
-# bar_width = 0.1
-# x = np.arange(len(input_channels))
-
-# # Color definitions
-# colors = {
-#     0.1: '#4477aa',  # blue
-#     0.25: '#66ccee', # cyan
-#     0.5: '#228833',  # green
-#     0.75: '#d4bb44', # yellow
-#     0.9: '#ee6677'   # red
-# }
-
-# # Define a function to plot data for each method
-# def plot_method(ax, method_macs, method_name):
-#     for i, cr in enumerate(compression_ratios):
-#         offset = (i - 2) * (bar_width + 0.01)  # Adjust the offset for each bar within a group
-#         bars = ax.bar(x + offset, method_macs[cr], width=bar_width, color=colors[cr],label=f'{cr}',zorder=2)
-#         # for bar in bars:
-#         #     ax.annotate(f'{cr}',
-#         #                 xy=(bar.get_x() + bar.get_width() / 2, 0),
-#         #                 xytext=(0, -12),  # 12 points vertical offset
-#         #                 textcoords="offset points",
-#         #                 ha='center', va='top', fontsize=10, color='black')  # Increased fontsize
-    
-#     ax.grid( zorder=1)    
-#     #ax.set_ylabel('Memory (# params)')
-#     ax.set_ylim([mac_min-0.1,mac_max+0.1])
-#     ax.set_title(f'{method_name}')
-#     ax.set_xticks(x)
-#     ax.set_xticklabels(input_channels)
-#     ax.tick_params(axis='x', pad=10)  # Move the x-tick labels lower
-#     ax.grid(True, which='both', zorder=1)
-# # Plot data for each method
-# plot_method(axes[0], cp_macs, 'Memory for diff. d for CP decomposition')
-# plot_method(axes[1], tucker_macs, 'Memory for diff. d for Tucker decomposition')
-# plot_method(axes[2], tt_macs, 'Memory for diff. d for TT decomposition')
-
-# plt.subplots_adjust(left=0.25)
-
-# fig.text(0.02, 0.5, 'Memory (#params)', va='center', rotation='vertical', fontsize=12)
-
-
-# # Add common x-label
-# plt.xlabel('Kernel size', fontsize=12)
-# plt.legend(loc="best", ncol=5)
-# plt.tight_layout()
-# plt.show()
-
-#%%Let's create plots to show difference in Out_channels
 
 kernel_sizes = [1, 3, 5]
 data_tucker_new = process_kernel_data(total_df_outch, data_bas, 'tucker',kernel_sizes)
@@ -471,48 +267,21 @@ def plot_method(ax, method_data, method_name, colors, compression_ratios, kernel
         ax.set_ylim(ylim)
 
 # # Plot MAC reduction data for each method
-# plot_method(axes[0, 0], cp_macs, 'MAC reduction CP', colors, compression_ratios, kernels, ylim=ylim_macs)
-# plot_method(axes[1, 0], tucker_macs, 'MAC reduction Tucker', colors, compression_ratios, kernels, ylim=ylim_macs)
-# plot_method(axes[2, 0], tt_macs, 'MAC reduction TT', colors, compression_ratios, kernels, ylim=ylim_macs)
 
-# # Plot measured memory data for each method
-# plot_method(axes[0, 1], cp_memory_meas, 'Measured memory CP', colors, compression_ratios, kernels, ylim=ylim_memory)
-# plot_method(axes[1, 1], tucker_memory_meas, 'Measured memory Tucker', colors, compression_ratios, kernels, ylim=ylim_memory)
-# plot_method(axes[2, 1], tt_memory_meas, 'Measured memory TT', colors, compression_ratios, kernels, ylim=ylim_memory)
-
-# # Plot calculated memory difference data for each method
-# plot_method(axes[0, 2], cp_memory_calc_diff, 'Calculated memory CP', colors, compression_ratios, kernels, ylim=ylim_memory_diff)
-# plot_method(axes[1, 2], tucker_memory_calc_diff, 'Calculated memory Tucker', colors, compression_ratios, kernels, ylim=ylim_memory_diff)
-# plot_method(axes[2, 2], tt_memory_calc_diff, 'Calculated memory TT', colors, compression_ratios, kernels, ylim=ylim_memory_diff)
-
-# # Add common y-labels for each column
-# fig.text(0.015, 0.5, 'Reduced number of MAC operations', va='center', rotation='vertical', fontsize=12)
-# fig.text(0.345, 0.5, 'Memory (MB)', va='center', rotation='vertical', fontsize=12)
-# fig.text(0.685, 0.5, 'Memory (#params)', va='center', rotation='vertical', fontsize=12)
-
-# # Add common x-label
-# fig.text(0.5, 0.04, 'Kernel Size', ha='center', fontsize=12)
-
-# handles, labels = axes[0, 0].get_legend_handles_labels()
-# fig.legend(handles, labels, loc='upper right', ncol=5, title='Compression Ratio')
-# plt.suptitle('Experiment 4: Memory and Computation Complexity', x=0.02, y=0.96, ha='left', fontsize=14, fontweight='bold')
-
-# plt.subplots_adjust(left=0.07, right=0.98, top=0.87, bottom=0.1, wspace=0.3, hspace=0.3)
 plot_method(axes[0], cp_memory_meas, 'CP', colors, compression_ratios, kernels, ylim=ylim_memory)
 plot_method(axes[1], tucker_memory_meas, 'Tucker', colors, compression_ratios, kernels, ylim=ylim_memory)
 plot_method(axes[2], tt_memory_meas, 'TT', colors, compression_ratios, kernels, ylim=ylim_memory)
 
-# Add common y-label for the plots
+
 fig.text(0.02, 0.5, 'Memory (MB)', va='center', rotation='vertical', fontsize=12)
 plt.subplots_adjust(left=0.06, right=0.98, top=0.87, bottom=0.1, wspace=0.3, hspace=0.3)
 
-# Add common x-label
+
 fig.text(0.5, 0.005, 'Kernels', ha='center', fontsize=12)
 
 # Add legend
 handles, labels = axes[0].get_legend_handles_labels()
-#fig.legend(handles, labels, loc='center right', ncol=2, title='Compression Ratio')
-# Add a common title
+
 #plt.suptitle('Experiment 3: Memory and Computation Complexity', x=0.5, y=0.98, ha='center', fontsize=14, fontweight='bold')
 plt.suptitle('Measured Memory for Experiment 4 on GPU')
 plt.legend(title='Compression ratio')
