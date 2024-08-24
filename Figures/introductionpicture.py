@@ -16,7 +16,7 @@ plt.close('all')
 random_state = 12345
 
 # Load the image
-image_path = 'IMG_0245.jpg'  # Replace with your image path
+image_path = 'IMG_0245.jpg' 
 image = Image.open(image_path)
 
 # Convert the image to RGB (if not already in RGB mode)
