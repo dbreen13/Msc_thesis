@@ -316,9 +316,6 @@ with open(save_path, 'wb') as f:
 #%%
 plt.close('all')
 
-
-# Assuming total_df_inch is your actual DataFrame
-
 # Split the DataFrame into separate DataFrames for each decomposition method
 datacp = total_df_outch[total_df_outch['Dec'] == 'cp']
 datatt = total_df_outch[total_df_outch['Dec'] == 'tt']

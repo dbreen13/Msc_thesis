@@ -284,12 +284,10 @@ plot_method(axes[0, 2], cp_memory_calc_diff, 'Calculated memory CP', colors, com
 plot_method(axes[1, 2], tucker_memory_calc_diff, 'Calculated memory Tucker', colors, compression_ratios, out_channels, ylim=ylim_memory_diff)
 plot_method(axes[2, 2], tt_memory_calc_diff, 'Calculated memory TT', colors, compression_ratios, out_channels, ylim=ylim_memory_diff)
 
-# Add common y-labels for each column
 fig.text(0.015, 0.5, 'Reduced number of MAC operations', va='center', rotation='vertical', fontsize=12)
 fig.text(0.345, 0.5, 'Memory (MB)', va='center', rotation='vertical', fontsize=12)
 fig.text(0.685, 0.5, 'Memory (#params)', va='center', rotation='vertical', fontsize=12)
 
-# Add common x-label
 fig.text(0.5, 0.04, 'Number of Output Channels', ha='center', fontsize=12)
 
 handles, labels = axes[0, 0].get_legend_handles_labels()

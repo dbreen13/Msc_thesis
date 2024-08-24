@@ -209,7 +209,7 @@ data_inch384.loc[:,'per_energy(kWh)']=np.around(data_inch384.loc[:,'per_energy(k
 #%%
 
 
-#%%Let's create plots to show difference in in_channels
+#%%Create plots to show difference in in_channels
 
 data_tt=total_df_inch[total_df_inch['Dec']=='tucker']
 
