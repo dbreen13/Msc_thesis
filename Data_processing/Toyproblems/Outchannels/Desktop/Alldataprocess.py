@@ -113,7 +113,7 @@ def plot_method(ax, method_data, method_name, colors, compression_ratios, input_
     if ylim:
         ax.set_ylim(ylim)
 
-#%%Combine all datasets
+#%%Combine all datasets to one large one
 allinfo_outch=pd.read_pickle('allinfo_out.pkl')
 
 data_tot=pd.DataFrame.from_dict(pd.read_pickle('data_tt_dec_outch.pkl')).transpose()
@@ -134,7 +134,7 @@ new_index = [
 # Assign the new index to the DataFrame
 allinfo_outch.index = new_index
 
-#load memory measurements
+#load memory measurements from the tools
 mem_outch=pd.read_pickle('mem_outch (1).pkl')
 mem_outch=mem_outch.rename(columns={'Mem':'Mem_meas'})
 mem_outch=mem_outch.loc[sort_keys]

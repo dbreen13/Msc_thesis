@@ -114,7 +114,7 @@ def plot_method(ax, method_data, method_name, colors, compression_ratios, input_
     if ylim:
         ax.set_ylim(ylim)
 
-#%%Combine all datasets
+#%%Combine all datasets to one big one
 allinfo_outch=pd.read_pickle('allinfo_out.pkl')
 
 data_tot=pd.DataFrame.from_dict(pd.read_pickle('data_tt_dec_outch.pkl')).transpose()
@@ -126,7 +126,7 @@ data_tot = data_tot.loc[sort_keys]
 data_bas=pd.DataFrame.from_dict(pd.read_pickle('data_bas_outch.pkl')).transpose()
 data_bas['Out_ch'] = data_bas.index.to_series().str.extract(r'outch(\d+)')[0].astype(float)
 
-# Create the new index based on the specified format
+# Create the new index based on the specified format so it is the same as log files
 new_index = [
     f"outch{row['Out_ch']}-inch{row['In_ch']}-fact{row['Dec']}-r{row['Comp']}-wh{row['In_feat'][2]}"
     for idx, row in allinfo_outch.iterrows()
@@ -135,7 +135,7 @@ new_index = [
 # Assign the new index to the DataFrame
 allinfo_outch.index = new_index
 
-#load memory measurements
+#load memory measurements from pickle file
 mem_outch=pd.read_pickle('mem_outch.pkl')
 mem_outch=mem_outch.rename(columns={'Mem':'Mem_meas'})
 mem_outch=mem_outch.loc[sort_keys]

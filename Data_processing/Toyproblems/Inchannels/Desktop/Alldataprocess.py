@@ -116,7 +116,7 @@ def plot_method(ax, method_data, method_name, colors, compression_ratios, input_
     if ylim:
         ax.set_ylim(ylim)
 
-#%%Combine all datasets
+#%%Combine all datasets to one large one
 allinfo_inch=pd.read_pickle('allinfo_in.pkl')
 
 data_tot=pd.DataFrame.from_dict(pd.read_pickle('data_tt_dec_inch.pkl')).transpose()
@@ -151,7 +151,7 @@ membas_tot=pd.concat([mem_bas] * 15, ignore_index=True)
 
 
 
-#make final dataset
+#make final dataset for further processing
 total_df_inch=pd.concat([data_tot,allinfo_inch,mem_inch], axis=1)
 total_df_inch['Mem_meas_diff']=total_df_inch['Mem_meas']-membas_tot['Mem'].to_numpy()
 

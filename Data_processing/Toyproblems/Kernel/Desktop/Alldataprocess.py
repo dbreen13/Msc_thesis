@@ -99,7 +99,7 @@ def calculate_memory(data, compression_ratios, memory_type):
     return memory
 
 
-#%%Combine all datasets
+#%%Combine all datasets to one larger one
 allinfo_kernel=pd.read_pickle('allinfo_kern.pkl')
 
 data_tot=pd.DataFrame.from_dict(pd.read_pickle('data_tt_dec_kernel.pkl')).transpose()
@@ -110,7 +110,7 @@ data_bas['Kern'] = data_bas.index.to_series().str.extract(r'kern(\d+)')[0].astyp
 sort_keys=sorted(data_tot.index, key=custom_sort_key)
 data_tot = data_tot.loc[sort_keys]
 
-# Create the new index based on the specified format
+# Create the new index based on the specified format so it is similar to the other ones
 new_index = [
     f"outch{row['Out_ch']}-inch{row['In_ch']}-fact{row['Dec']}-r{row['Comp']}-wh{row['In_feat'][2]}-kern{row['Kernel']}"
     for idx, row in allinfo_kernel.iterrows()

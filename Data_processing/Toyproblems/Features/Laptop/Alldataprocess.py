@@ -114,7 +114,7 @@ def plot_method(ax, method_data, method_name, colors, compression_ratios, input_
     if ylim:
         ax.set_ylim(ylim)
 
-#%%Combine all datasets
+#%%Combine all datasets to one big one
 allinfo_outch=pd.read_pickle('allinfo_feat.pkl')
 
 data_tot=pd.DataFrame.from_dict(pd.read_pickle('data_tt_dec_feat.pkl')).transpose()
@@ -136,7 +136,7 @@ new_index = [
 # Assign the new index to the DataFrame
 allinfo_outch.index = new_index
 
-#add memory measurements
+#add all measured memory measurements retrieved from tool
 mem_feat=pd.read_pickle('mem_feat.pkl')
 mem_feat=mem_feat.rename(columns={'Mem':'Mem_meas'})
 
@@ -149,7 +149,7 @@ membas_tot=pd.concat([mem_bas] * 15, ignore_index=True)
 
 
 
-#make the final dataset
+#make the final dataset for further analysis
 total_df_outch=pd.concat([data_tot,allinfo_outch,mem_feat], axis=1)
 total_df_outch['Mem_meas_diff']=total_df_outch['Mem_meas']-membas_tot['Mem_meas'].to_numpy()
 
@@ -185,79 +185,6 @@ datanew = datanew.merge(data_bas[['std_energy(kWh)', 'In_feat']], on='In_feat', 
 datanew['combined_std_energy'] = np.sqrt(datanew['std_energy(kWh)']**2 + datanew['std_energy(kWh)_bas']**2)
 
 #%%
-#plt.close('all')
-# data_tt=total_df_outch[total_df_outch['Dec']=='tucker']
-# data_tt['In_feat'] = data_tt['In_feat'].apply(list)
-
-# data_feat2=data_tt[data_tt['In_feat'].apply(lambda x: x == [128, 448, 2, 2])]
-# data_bas2=data_bas[data_bas['Feat']==2]
-# data_feat4=data_tt[data_tt['In_feat'].apply(lambda x: x == [128, 448, 4,4])]
-# data_bas4=data_bas[data_bas['Feat']==4]
-# data_feat6=data_tt[data_tt['In_feat'].apply(lambda x: x == [128, 448, 6,6])]
-# data_bas6=data_bas[data_bas['Feat']==6]
-# data_feat8=data_tt[data_tt['In_feat'].apply(lambda x: x == [128, 448, 8,8])]
-# data_bas8=data_bas[data_bas['Feat']==8]
-
-# data_feat2.loc[:, 'energy(kWh)'] = pd.to_numeric(data_feat2['energy(kWh)'], errors='coerce')
-# data_feat2['delta_energy(kWh)']=np.ones(len(data_feat2['energy(kWh)']))*data_bas2['energy(kWh)'].to_numpy()-data_feat2['energy(kWh)']
-# data_feat2.loc[:,'delta_energy(kWh)']=pd.to_numeric(data_feat2['delta_energy(kWh)'], errors='coerce')
-# data_feat2['per_energy(kWh)']=data_feat2['delta_energy(kWh)']/(np.ones(len(data_feat2['energy(kWh)']))*data_bas2['energy(kWh)'].to_numpy())*100
-# data_feat2.loc[:,'per_energy(kWh)']=pd.to_numeric(data_feat2.loc[:,'per_energy(kWh)'],errors='coerce')
-# data_feat2.loc[:,'per_energy(kWh)']=np.around(data_feat2.loc[:,'per_energy(kWh)'], decimals=2)
-# z2 = np.polyfit(data_feat2['Comp'], (data_feat2['MAC_original']-data_feat2['MAC'])/data_feat2['MAC_original']*100, 2)
-# p2 = np.poly1d(z2)
-# xp2 = np.linspace(0.1, 0.9, 100)
- 
-
-# data_feat4.loc[:, 'energy(kWh)'] = pd.to_numeric(data_feat4['energy(kWh)'], errors='coerce')
-# data_feat4['delta_energy(kWh)']=np.ones(len(data_feat4['energy(kWh)']))*data_bas4['energy(kWh)'].to_numpy()-data_feat4['energy(kWh)']
-# data_feat4.loc[:,'delta_energy(kWh)']=pd.to_numeric(data_feat4['delta_energy(kWh)'], errors='coerce')
-# data_feat4['per_energy(kWh)']=data_feat4['delta_energy(kWh)']/(np.ones(len(data_feat4['energy(kWh)']))*data_bas4['energy(kWh)'].to_numpy())*100
-# data_feat4.loc[:,'per_energy(kWh)']=pd.to_numeric(data_feat4.loc[:,'per_energy(kWh)'],errors='coerce')
-# data_feat4.loc[:,'per_energy(kWh)']=np.around(data_feat4.loc[:,'per_energy(kWh)'], decimals=2)
-
-# z4 = np.polyfit(data_feat4['Comp'], (data_feat4['MAC_original']-data_feat4['MAC'])/data_feat4['MAC_original']*100, 2)
-# p4 = np.poly1d(z4)
-# xp4 = np.linspace(0.1, 0.9, 100)
-
-# data_feat6.loc[:, 'energy(kWh)'] = pd.to_numeric(data_feat6['energy(kWh)'], errors='coerce')
-# data_feat6['delta_energy(kWh)']=np.ones(len(data_feat6['energy(kWh)']))*data_bas6['energy(kWh)'].to_numpy()-data_feat6['energy(kWh)']
-# data_feat6.loc[:,'delta_energy(kWh)']=pd.to_numeric(data_feat6['delta_energy(kWh)'], errors='coerce')
-# data_feat6['per_energy(kWh)']=data_feat6['delta_energy(kWh)']/(np.ones(len(data_feat6['energy(kWh)']))*data_bas6['energy(kWh)'].to_numpy())*100
-# data_feat6.loc[:,'per_energy(kWh)']=pd.to_numeric(data_feat6.loc[:,'per_energy(kWh)'],errors='coerce')
-# data_feat6.loc[:,'per_energy(kWh)']=np.around(data_feat6.loc[:,'per_energy(kWh)'], decimals=2)
-
-# z6 = np.polyfit(data_feat6['Comp'], (data_feat6['MAC_original']-data_feat6['MAC'])/data_feat6['MAC_original']*100, 2)
-# p6 = np.poly1d(z6)
-# xp6 = np.linspace(0.1, 0.9, 100)
-
-# data_feat8.loc[:, 'energy(kWh)'] = pd.to_numeric(data_feat8['energy(kWh)'], errors='coerce')
-# data_feat8['delta_energy(kWh)']=np.ones(len(data_feat8['energy(kWh)']))*data_bas8['energy(kWh)'].to_numpy()-data_feat8['energy(kWh)']
-# data_feat8.loc[:,'delta_energy(kWh)']=pd.to_numeric(data_feat8['delta_energy(kWh)'], errors='coerce')
-# data_feat8['per_energy(kWh)']=data_feat8['delta_energy(kWh)']/(np.ones(len(data_feat8['energy(kWh)']))*data_bas8['energy(kWh)'].to_numpy())*100
-# data_feat8.loc[:,'per_energy(kWh)']=pd.to_numeric(data_feat8.loc[:,'per_energy(kWh)'],errors='coerce')
-# data_feat8.loc[:,'per_energy(kWh)']=np.around(data_feat8.loc[:,'per_energy(kWh)'], decimals=2)
-
-# z8 = np.polyfit(data_feat8['Comp'], (data_feat8['MAC_original']-data_feat8['MAC'])/data_feat8['MAC_original']*100, 2)
-# p8 = np.poly1d(z8)
-# xp8 = np.linspace(0.1, 0.9, 100)
-
-# plt.figure()
-# plt.scatter(data_feat2['Comp'], (data_feat2['MAC_original']-data_feat2['MAC'])/data_feat2['MAC_original']*100,label='In_feat=2', color='c')
-# plt.plot(xp2, p2(xp2), 'c' + '-')
-# plt.scatter(data_feat4['Comp'], (data_feat4['MAC_original']-data_feat4['MAC'])/data_feat4['MAC_original']*100,label='In_feat=4', color='m')
-# plt.plot(xp4, p4(xp4), 'm' + '-')
-# plt.scatter(data_feat6['Comp'], (data_feat6['MAC_original']-data_feat6['MAC'])/data_feat6['MAC_original']*100,label='In_feat=6', color='k')
-# plt.plot(xp6, p6(xp6), 'k' + '-')
-# plt.scatter(data_feat8['Comp'], (data_feat8['MAC_original']-data_feat8['MAC'])/data_feat8['MAC_original']*100,label='In_feat=8',color='y')
-# plt.plot(xp8, p8(xp8), 'y' + '-')
-# plt.title('MAC operations saved (%) for Tuck')
-# plt.xlabel('Compression')
-# plt.ylabel('MACs saved [%]')
-# plt.legend()
-# save_path = "featall_reg.pkl"
-# with open(save_path, 'wb') as f:
-#     pickle.dump(total_df_outch, f)
 
 # Define the features and corresponding colors
 features = [2, 4, 6, 8]
